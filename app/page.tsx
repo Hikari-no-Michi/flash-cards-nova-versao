@@ -1,3 +1,4 @@
+"use client"
 import Head from 'next/head';
 import { DesktopHeader } from './components/Header/DesktopHeader';
 import { MobileHeader } from './components/Header/MobileHeader';
@@ -7,18 +8,21 @@ import {
   faChartPie,
   faCircleCheck,
   faCircleXmark,
+  faMoon,
 } from '@fortawesome/free-solid-svg-icons';
+import { useAtom } from 'jotai';
+import { themeAtom } from '@/store/themeAtom';
 
 export default function Home() {
+  const [theme, setTheme] = useAtom(themeAtom);
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <div className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
         <DesktopHeader />
         <MobileHeader />
-        <div className="p-4 mx-auto w-full md:p-6">
-          <div className="grid grid-cols-12 gap-4 md:gap-6">
-            {/* Primeira div – 20% (oculta em telas pequenas) */}
+        <div className={`p-4 mx-auto w-full md:p-6 ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'} h-screen`}>
+          <div className={`grid grid-cols-12 gap-4 md:gap-6`}>
             <div className="hidden md:block md:col-span-4 rounded-2xl border border-gray-200 bg-gray-50 p-5 sm:p-6 space-y-4 h-[80vh] shadow-md">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -56,7 +60,7 @@ export default function Home() {
 
             {/* Segunda div – 80% em md+, 100% em sm */}
             <div className="col-span-12 md:col-span-8 rounded-2xl border border-gray-200 bg-gray-50 p-5 sm:p-6 h-[30vh] shadow-md">
-              Segunda Div (80% em telas grandes, 100% em telas menores)
+              Frente do cartão
             </div>
           </div>
         </div>

@@ -6,24 +6,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBars,
   faBell,
-  faGear,
+  faSun,
   faSearch,
+  faMoon,
 } from '@fortawesome/free-solid-svg-icons';
+import { themeAtom } from '@/store/themeAtom';
 
 export function DesktopHeader() {
   const [_, setSidebarToggle] = useAtom(sidebarToggleAtom);
-
-  const handleToggleSidebar = () => {
-    setSidebarToggle((prev) => !prev);
-  };
+  const [theme, setTheme] = useAtom(themeAtom);
+  
 
   return (
-    <header className="h-[70px] w-full top-0 hidden md:flex border-b border-gray-200 bg-white">
+    <header className={`h-[70px] w-full top-0 hidden md:flex border-b ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}`}>
       <div className="flex w-full items-center justify-between px-6">
         <div className="flex gap-4 items-center">
           <button
-            onClick={handleToggleSidebar}
-            className="flex h-[40px] w-[46px] min-w-[40px] items-center justify-center rounded-lg border border-gray-200 text-gray-500"
+            onClick={()=>setSidebarToggle((prev) => !prev)}
+            className={`flex h-[40px] w-[46px] min-w-[40px] items-center justify-center rounded-lg border text-gray-500
+              ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
+              `}
           >
             <FontAwesomeIcon icon={faBars} className="h-5 w-5 text-slate-600" />
           </button>
@@ -37,7 +39,9 @@ export function DesktopHeader() {
             </span>
             <input
               type="text"
-              className="h-11 w-full rounded-lg border border-gray-200 bg-transparent py-2.5 pl-12 pr-14 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 xl:w-[430px] focus:outline-none"
+              className={`h-11 w-full rounded-lg border py-2.5 pl-12 pr-14 text-sm shadow-theme-xs xl:w-[430px] focus:outline-none 
+              ${theme === 'light' ? 'bg-white border-gray-200 placeholder:text-gray-400 text-gray-800' : 'bg-[#101828] border-gray-800 placeholder:text-slate-300 text-slate-300'}
+              `}
             />
           </div>
         </div>
@@ -47,12 +51,24 @@ export function DesktopHeader() {
         </a>
 
         <div className="flex gap-2">
-          <button className="hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700">
+          <button
+           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          className={`hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border  text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700
+            ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
+          `}>
+            
+            {theme === 'light' ? (
+              <FontAwesomeIcon icon={faMoon} className="h-5 w-5 text-slate-600" />
+            ): (
+              <FontAwesomeIcon icon={faSun} className="h-5 w-5 text-slate-600" />
+            )}
+            
+          </button>
+          <button className={`hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700
+            ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
+            `}>
             <FontAwesomeIcon icon={faBell} className="h-5 w-5 text-slate-600" />
-          </button>
-          <button className="hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700">
-            <FontAwesomeIcon icon={faGear} className="h-5 w-5 text-slate-600" />
-          </button>
+          </button>          
         </div>
       </div>
     </header>

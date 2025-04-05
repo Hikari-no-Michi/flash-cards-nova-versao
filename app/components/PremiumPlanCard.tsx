@@ -1,7 +1,12 @@
+import { themeAtom } from "@/store/themeAtom";
+import { useAtom } from "jotai";
+
 export default function PremiumPlanCard() {
+
+   const [theme] = useAtom(themeAtom);
   return (
     <div>
-      <h3 className="mb-2 font-semibold text-gray-900 text-slate-800">
+      <h3 className={`mb-2 font-semibold ${theme === 'light' ? 'text-slate-800 bg-slate-100' : 'text-purple-300 bg-[#0a101c]'}`}>
         Plano Premium
       </h3>
       <p className="text-theme-sm mb-4 text-gray-500 text-sm">
