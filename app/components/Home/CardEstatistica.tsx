@@ -1,6 +1,8 @@
 'use client';
+import { themeAtom } from "@/store/themeAtom";
 import { faChartPie, faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAtom } from "jotai";
 
 
 import { useState } from 'react';
@@ -23,9 +25,11 @@ const dadosSimulados = [
 
 const COLORS = ['#4CAF50', '#F44336'];
 
-export default function CardEstatistica () {
 
-    const [disciplinaSelecionada, setDisciplinaSelecionada] = useState('todas');
+export default function CardEstatistica () {
+  const [theme] = useAtom(themeAtom);
+
+  const [disciplinaSelecionada, setDisciplinaSelecionada] = useState('todas');
 
   const disciplinasUnicas = Array.from(new Set(dadosSimulados.map((d) => d.disciplinaId)));
 
@@ -44,14 +48,14 @@ export default function CardEstatistica () {
   ];
 
     return (
-        <div className="hidden md:block md:col-span-4 rounded-2xl border border-gray-200 bg-gray-50 p-5 sm:p-6 space-y-4 h-[85vh] shadow-md">
+        <div className={`hidden md:block md:col-span-4 rounded-2xl border ${theme ==='light'? 'bg-slate-50 border-gray-200' : 'bg-[#0a101c] border-gray-800'} p-5 sm:p-6 space-y-4 h-[85vh] shadow-md`}>
              <div >
                 <div className="mb-4">
-                    <label className="block mb-1 text-sm font-medium text-gray-700">
+                    <label className={`block mb-1 text-sm font-medium ${theme ==='light'? 'text-slate-900' : 'text-slate-300'} py-3`}>
                     Selecionar Disciplina
                     </label>
                     <select
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 text-slate-800"
+                    className={`w-full ${theme ==='light'? 'bg-slate-50 border-gray-200 text-slate-800' : 'bg-[#0a101c] border-gray-800 text-slate-300'} px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 `}
                     value={disciplinaSelecionada}
                     onChange={(e) => setDisciplinaSelecionada(e.target.value)}
                     >
@@ -87,7 +91,7 @@ export default function CardEstatistica () {
                     </ResponsiveContainer>
                 </div>
 
-                <div className="text-center mt-4 text-lg font-semibold">
+                <div className={`text-center mt-4 text-lg font-semibold ${theme ==='light'? 'text-gray-800' : 'text-slate-300'}`}>
                     Desempenho: {desempenho}%
                 </div>
                 </div>

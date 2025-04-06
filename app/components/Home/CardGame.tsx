@@ -1,3 +1,4 @@
+"use client"
 export default function CardGame () {
 
     const errei = () => {
@@ -20,7 +21,7 @@ export default function CardGame () {
                 <div className="flex rounded-2xl text-2xl text-white border border-sky-200 bg-sky-500 p-5 sm:p-6 h-[50vh] shadow-md justify-center items-center">
                 Frente do cartão
                 </div>
-                <div className="flex w-full mt-4 h-3 justify-center items-center mt-10 gap-4">
+                <div className="flex w-full mt-10 h-3 justify-center items-center mt-10 gap-4">
                     <button
                         onClick={errei}
                         className="w-1/2 bg-slate-100 text-slate-800 text-md p-4 font-semibold text-center border-b border-sky-400 border-b-2"
