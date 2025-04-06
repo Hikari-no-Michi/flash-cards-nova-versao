@@ -54,45 +54,61 @@ export default function Sidebar() {
                 'MENU'
               )}
             </h3>
-            <ul className='mb-6 flex flex-col gap-4 mt-8'>
+            <ul className={`mb-6 flex flex-col gap-4 mt-8`}>
               <li>
                 <a href="" className={`menu-item group menu-item-inactive text-sm flex justify-start items-center gap-2
                   ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
+                  ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
                   `}>
                 <FontAwesomeIcon
                   icon={faUserCircle}
                   className="w-[24px] h-[24px]"
-                /> Perfil do Usuário
+                /> 
+                {!sidebarToggle && (
+                   <>Perfil do Usuário</>
+                )}
                 </a>
               </li>
               <li>
                 <a href="" className={`menu-item group menu-item-inactive text-sm flex justify-start items-center gap-2
                   ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
+                  ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
                   `}>
                 <FontAwesomeIcon
                   icon={faClipboardList}
                   className="w-[24px] h-[24px]"
-                /> Revisão
+                /> 
+                {!sidebarToggle && (
+                   <>Revisão</>
+                )}
                 </a>
               </li>
               <li>
                 <a href="" className={`menu-item group menu-item-inactive text-sm  flex justify-start items-center gap-2
                   ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
+                  ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
                   `}>
                 <FontAwesomeIcon
                   icon={faChartBar}
                   className="w-[24px] h-[24px]"
-                /> Estatísticas
+                /> 
+                {!sidebarToggle && (
+                   <>Estatísticas</>
+                )}
                 </a>
               </li>
               <li>
                 <a href="" className={`menu-item group menu-item-inactive text-sm  flex justify-start items-center gap-2
                   ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
+                  ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
                   `}>
                 <FontAwesomeIcon
                   icon={faMoneyCheck}
                   className="w-[24px] h-[24px]"
-                /> Financeiro
+                />
+                {!sidebarToggle && (
+                   <>Financeiro</>
+                )}
                 </a>
               </li>
             </ul>
