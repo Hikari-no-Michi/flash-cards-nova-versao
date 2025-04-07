@@ -10,7 +10,8 @@ export default function PremiumPlanCard() {
         Plano Premium
       </h3>
       <p className="text-theme-sm mb-4 text-gray-500 text-sm">
-        Libere todos os recursos do sistema sem limites.
+        <div className={` ${theme === 'light'? 'text-purple-500': 'text-gray-100'} `}> A vantagem que faltava para você sair na frente!</div>
+        Libere todos os recursos do sistema sem limites. 
       </p>
       <a
         //href="#"

@@ -1,4 +1,8 @@
 "use client"
+
+import { themeAtom } from "@/store/themeAtom";
+import { useAtom } from "jotai";
+
 export default function CardGame () {
 
     const errei = () => {
@@ -8,6 +12,8 @@ export default function CardGame () {
     const acertei = () => {
         console.log("Você clicou em: Acertei");
     }
+
+    const [theme] = useAtom(themeAtom);
 
     return (
         <>
@@ -24,13 +30,17 @@ export default function CardGame () {
                 <div className="flex w-full mt-10 h-3 justify-center items-center mt-10 gap-4">
                     <button
                         onClick={errei}
-                        className="w-1/2 bg-slate-100 text-slate-800 text-md p-4 font-semibold text-center border-b border-sky-400 border-b-2"
+                        className={`w-1/2 text-md p-4 font-semibold text-center border-b border-b-2 rounded-full
+                             ${theme ==='light'? 'bg-slate-50 text-slate-900 border-sky-400' : 'bg-[#0a101c] text-red-500 border-red-500'}
+                        `}
                     >
                         Errei
                     </button>
                     <button
                         onClick={acertei}
-                        className="w-1/2 bg-slate-100 text-slate-800 text-md p-4 font-semibold text-center border-b border-sky-400 border-b-2"
+                        className={`w-1/2  text-md p-4 font-semibold text-center border-b border-b-2 rounded-full
+                            ${theme ==='light'? 'bg-slate-50 text-slate-900 border-sky-400' : 'bg-[#0a101c] text-green-500 border-green-500'}
+                        `}
                     >
                         Acertei
                     </button>

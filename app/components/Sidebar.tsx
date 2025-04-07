@@ -29,15 +29,10 @@ export default function Sidebar() {
       <div className="sidebar-header flex items-center gap-2 pt-8 pb-7 justify-center">
         <a href="">
           {sidebarToggle ? (
-            <img
-              src="https://demo.tailadmin.com/src/images/logo/logo-icon.svg"
-              alt=""
-            />
+            <h3 className={`text-xl font-bold text-center ${theme === 'light' ? 'bg-[#556B2F] text-white' : 'bg-[#799845]'}`}>ACM </h3>
+            
           ) : (
-            <img
-              src="https://demo.tailadmin.com/src/images/logo/logo.svg"
-              alt=""
-            />
+            <h3 className={`text-xl font-bold text-center ${theme === 'light' ? 'bg-[#556B2F] text-white' : 'bg-[#799845]'} `}>A CARTA NA MANGA </h3>
           )}
         </a>
       </div>

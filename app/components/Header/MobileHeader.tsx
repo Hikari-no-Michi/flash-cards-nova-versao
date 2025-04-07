@@ -12,7 +12,7 @@ import {
 
 export function MobileHeader() {
   return (
-    <header className="w-full flex flex-col md:hidden bg-slate-100 px-2 py-4 justify-between rounded-b-xl">
+    <header className="w-full flex flex-col md:hidden bg-slate-100 px-2 py-4 justify-between">
       <div className="flex items-center justify-between">
         <button className="h-10 w-10 rounded-full text-sky-600 flex items-center justify-center">
           <FontAwesomeIcon icon={faBars} className="h-5 w-5 text-slate-500" />
