@@ -4,11 +4,13 @@ import { DesktopHeader } from './components/Header/DesktopHeader';
 import { MobileHeader } from './components/Header/MobileHeader';
 import Sidebar from './components/Sidebar';
 import { useAtom } from 'jotai';
-import { themeAtom } from '@/store/themeAtom';
 import CardEstatistica from './components/Home/CardEstatistica';
 import CardGame from './components/Home/CardGame';
 import React from 'react';
 import { LoginForm } from './components/Login/DesktopLogin';
+import Notifications from './components/Notification';
+import OptionsProfile from './components/OptionsProfile';
+import { themeAtom } from '@/store';
 
 export default function Home() {
   const [theme] = useAtom(themeAtom);
@@ -25,7 +27,15 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <LoginForm ></LoginForm>
+      <div>
+        <LoginForm />
+      </div>      
+      <div className='relative right-[70px]'>
+        <Notifications />
+      </div>
+      <div className='relative right-[20px]'>
+        <OptionsProfile />
+      </div>
     </div>
   );
 }

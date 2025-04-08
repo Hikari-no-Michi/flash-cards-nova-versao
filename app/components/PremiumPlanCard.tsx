@@ -1,6 +1,6 @@
 'use client';
 
-import { themeAtom } from "@/store/themeAtom";
+import { themeAtom } from "@/store";
 import { useAtom } from "jotai";
 
 export default function PremiumPlanCard() {

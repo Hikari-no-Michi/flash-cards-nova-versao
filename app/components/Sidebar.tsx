@@ -1,11 +1,10 @@
 'use client';
 import { useRef, useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { sidebarToggleAtom } from '@/store/sidebarAtom';
 import PremiumPlanCard from './PremiumPlanCard';
 import { faChartBar, faClipboardList, faEllipsisH, faMoneyCheck, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { themeAtom } from '@/store/themeAtom';
+import { sidebarToggleAtom, themeAtom } from '@/store';
 
 
 export default function Sidebar() {

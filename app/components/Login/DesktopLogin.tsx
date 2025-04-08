@@ -1,10 +1,7 @@
 'use client';
+import { authTokenAtom, isLoading, isLoggedAtom, modalLoginAtom } from '@/store';
 import { useAtom } from 'jotai';
-import { isLoggedAtom } from '@/store/isLoggedAtom';
-import { modalLoginAtom } from '@/store/loginModalShowAtom';
 import { useRef, useState } from 'react';
-import { authTokenAtom } from '@/store/authTokenAtom';
-import { isLoading } from '@/store/isLoadingAtom';
 
 export function LoginForm() {
   const [ShowModal, setShowModal] = useAtom(modalLoginAtom);

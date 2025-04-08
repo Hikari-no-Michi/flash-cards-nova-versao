@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import { useAtom } from 'jotai';
-import { sidebarToggleAtom } from '@/store/sidebarAtom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBars,
@@ -11,25 +10,15 @@ import {
   faMoon,
   faUserSecret,
 } from '@fortawesome/free-solid-svg-icons';
-import { themeAtom } from '@/store/themeAtom';
-import { isLoggedAtom } from '@/store/isLoggedAtom';
-import { modalLoginAtom } from '@/store/loginModalShowAtom';
-import { authTokenAtom } from '@/store/authTokenAtom';
-import { isLoading } from '@/store/isLoadingAtom';
+import { isLoggedAtom, modalLoginAtom, ShowNotifications, ShowOptionsProfile, sidebarToggleAtom, themeAtom } from '@/store';
 
 export function DesktopHeader() {
   const [_, setSidebarToggle] = useAtom(sidebarToggleAtom);
   const [theme, setTheme] = useAtom(themeAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
   const [showModal, setShowModal] = useAtom(modalLoginAtom);
-  const [token, setToken] = useAtom(authTokenAtom);  
-  const [loading, setLoading] = useAtom(isLoading);
-
-  function deslogar(): void {
-    setIsLogged(false);
-    setToken(null);
-    setLoading(false);
-  }
+  const [showNotifications, setShowNotifications] = useAtom(ShowNotifications);
+  const [showOptionsProfile, setShowOptionsProfile] = useAtom(ShowOptionsProfile);
 
   return (
     <header className={`w-full top-0 hidden md:flex border-b ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
@@ -84,17 +73,25 @@ export function DesktopHeader() {
             
           </button>
           
-          <button className={`hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700
+          <button 
+          onClick={()=>setShowNotifications( !showNotifications)}
+          className={`hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700
             ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
             `}>
             <FontAwesomeIcon icon={faBell} className="h-5 w-5 text-slate-600" />
           </button>
           
           {isLogged ? (
-            <div className='flex items-center gap-2 rounded-lg'>
-              <p className={`font-medium text-sm ${theme === 'light'? 'text-slate-900 ': 'text-slate-50 '}`}>Bem-vindo, usuário!</p>
-              <button className='px-4 py-1 bg-blue-500 mx-2 rounded-md text-white' onClick={deslogar}>Sair</button>
-            </div>
+            <button 
+              onClick={() => setShowOptionsProfile( !showOptionsProfile)} 
+              className="h-11 w-11 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center p-0 hover:ring-2 hover:ring-gray-400"
+            >
+              <img 
+                src="/user1.jpg" 
+                alt="User profile" 
+                className="h-full w-full object-cover" 
+              />
+            </button>
           ) : (
             <div
               onClick={() => setShowModal(true)}

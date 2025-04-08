@@ -12,7 +12,7 @@ import {
   faSun,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAtom } from 'jotai';
-import { themeAtom } from '@/store/themeAtom';
+import { themeAtom } from '@/store';
 
 export function MobileHeader() {
   const [theme, setTheme] = useAtom(themeAtom);

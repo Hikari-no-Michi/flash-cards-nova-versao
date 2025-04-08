@@ -1,5 +1,5 @@
 'use client';
-import { themeAtom } from "@/store/themeAtom";
+import { themeAtom } from "@/store";
 import { faChartPie, faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAtom } from "jotai";
