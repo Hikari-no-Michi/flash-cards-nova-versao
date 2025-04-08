@@ -18,6 +18,15 @@ export const ShowNotifications = atom(false);
 
 export const ShowOptionsProfile = atom(false);
 
+export interface IReviewedQuestion {
+    userId: string;
+    questionId: string;
+    status: 'correct' | 'incorrect';
+    materiaId: string;
+}
+  
+export const reviewedQuestionsAtom = atom<IReviewedQuestion[]>([]);
+
 
 
 

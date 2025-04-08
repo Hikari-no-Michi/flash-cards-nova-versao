@@ -4,12 +4,13 @@ import { useAtom } from 'jotai';
 import PremiumPlanCard from './PremiumPlanCard';
 import { faChartBar, faClipboardList, faEllipsisH, faMoneyCheck, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { sidebarToggleAtom, themeAtom } from '@/store';
+import { isLoggedAtom, sidebarToggleAtom, themeAtom } from '@/store';
 
 
 export default function Sidebar() {
   const [sidebarToggle] = useAtom(sidebarToggleAtom);
   const [theme] = useAtom(themeAtom);
+  const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
 
   return (
     <aside
@@ -49,7 +50,8 @@ export default function Sidebar() {
               )}
             </h3>
             <ul className={`mb-6 flex flex-col gap-4 mt-8`}>
-              <li>
+              { isLogged && (
+                <li>
                 <a href="" className={`menu-item group menu-item-inactive text-sm flex justify-start items-center gap-2
                   ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
                   ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
@@ -63,6 +65,8 @@ export default function Sidebar() {
                 )}
                 </a>
               </li>
+              )}
+              
               <li>
                 <a href="" className={`menu-item group menu-item-inactive text-sm flex justify-start items-center gap-2
                   ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
@@ -91,20 +95,24 @@ export default function Sidebar() {
                 )}
                 </a>
               </li>
-              <li>
-                <a href="" className={`menu-item group menu-item-inactive text-sm  flex justify-start items-center gap-2
-                  ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
-                  ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
-                  `}>
-                <FontAwesomeIcon
-                  icon={faMoneyCheck}
-                  className="w-[24px] h-[24px]"
-                />
-                {!sidebarToggle && (
-                   <>Financeiro</>
-                )}
-                </a>
+
+              {isLogged && (
+                <li>
+                  <a href="" className={`menu-item group menu-item-inactive text-sm  flex justify-start items-center gap-2
+                    ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
+                    ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
+                    `}>
+                  <FontAwesomeIcon
+                    icon={faMoneyCheck}
+                    className="w-[24px] h-[24px]"
+                  />
+                  {!sidebarToggle && (
+                    <>Financeiro</>
+                  )}
+                  </a>
               </li>
+              )}
+              
             </ul>
           </div>
         </nav>
