@@ -3,6 +3,8 @@ import { themeAtom } from "@/store/themeAtom";
 import { faChartPie, faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAtom } from "jotai";
+import { useMediaQuery } from 'react-responsive';
+
 
 
 import { useState } from 'react';
@@ -29,6 +31,10 @@ const COLORS = ['#4CAF50', '#F44336'];
 export default function CardEstatistica () {
   const [theme] = useAtom(themeAtom);
 
+  const isMd = useMediaQuery({ maxWidth: 1024 }); // md é até 1024px
+  const outerRadius = isMd ? 70 : 100; // menor em md, padrão em lg
+
+
   const [disciplinaSelecionada, setDisciplinaSelecionada] = useState('todas');
 
   const disciplinasUnicas = Array.from(new Set(dadosSimulados.map((d) => d.disciplinaId)));
@@ -48,7 +54,7 @@ export default function CardEstatistica () {
   ];
 
     return (
-        <div className={`hidden md:block md:col-span-4 rounded-2xl border ${theme ==='light'? 'bg-slate-50 border-gray-200' : 'bg-[#0a101c] border-gray-800'} p-5 sm:p-6 space-y-4 h-[85vh] shadow-md`}>
+        <div className={`hidden md:block md:col-span-4 rounded-2xl border ${theme ==='light'? 'bg-slate-50 border-gray-200' : 'bg-[#0a101c] border-gray-800'} p-5 sm:p-6 space-y-4 h-[80vh] shadow-md`}>
              <div >
                 <div className="mb-4">
                     <label className={`block mb-1 text-sm font-medium ${theme ==='light'? 'text-slate-900' : 'text-slate-300'} py-3`}>
@@ -75,7 +81,7 @@ export default function CardEstatistica () {
                         data={dataGrafico}
                         dataKey="value"
                         nameKey="name"
-                        outerRadius={100}
+                        outerRadius={outerRadius}
                         label
                         >
                         {dataGrafico.map((entry, index) => (

@@ -15,7 +15,7 @@ export default function Sidebar() {
   return (
     <aside
       className={`
-        fixed top-0 left-0 z-[9999] flex h-screen flex-col overflow-y-auto border-r border-gray-200 px-5 transition-all duration-300
+        fixed top-0 left-0 z-[15] flex h-screen flex-col overflow-y-auto border-r border-gray-200 px-5 transition-all duration-300
         ${
           sidebarToggle
             ? 'translate-x-0 w-[90px] lg:w-[90px] hidden lg:flex'

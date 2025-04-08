@@ -30,16 +30,16 @@ export default function CardGame () {
                 <div className="flex w-full mt-10 h-3 justify-center items-center mt-10 gap-4">
                     <button
                         onClick={errei}
-                        className={`w-1/2 text-md p-4 font-semibold text-center border-b border-b-2 rounded-full
-                             ${theme ==='light'? 'bg-slate-50 text-slate-900 border-sky-400' : 'bg-[#0a101c] text-red-500 border-red-500'}
+                        className={`w-1/2 text-sm p-2 font-semibold text-center rounded-full
+                             ${theme ==='light'? 'border-b border-b-2 bg-slate-50 text-slate-900 border-sky-400' : 'border-2 text-red-500 border-red-500'}
                         `}
                     >
                         Errei
                     </button>
                     <button
                         onClick={acertei}
-                        className={`w-1/2  text-md p-4 font-semibold text-center border-b border-b-2 rounded-full
-                            ${theme ==='light'? 'bg-slate-50 text-slate-900 border-sky-400' : 'bg-[#0a101c] text-green-500 border-green-500'}
+                        className={`w-1/2  text-sm p-2 font-semibold text-center rounded-full
+                            ${theme ==='light'? 'border-b border-b-2 bg-slate-50 text-slate-900 border-sky-400' : 'border-2 text-green-500 border-green-500'}
                         `}
                     >
                         Acertei

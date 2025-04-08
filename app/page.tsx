@@ -7,11 +7,13 @@ import { useAtom } from 'jotai';
 import { themeAtom } from '@/store/themeAtom';
 import CardEstatistica from './components/Home/CardEstatistica';
 import CardGame from './components/Home/CardGame';
+import React from 'react';
+import { LoginForm } from './components/Login/DesktopLogin';
 
 export default function Home() {
-  const [theme, setTheme] = useAtom(themeAtom);
-  return (
-    <div className="flex h-screen overflow-hidden">
+  const [theme] = useAtom(themeAtom);
+  return (    
+    <div className={`flex h-screen overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-[#101828]'} z-5`}>
       <Sidebar />
       <div className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
         <DesktopHeader />
@@ -23,6 +25,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <LoginForm ></LoginForm>
     </div>
   );
 }
