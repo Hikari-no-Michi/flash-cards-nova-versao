@@ -112,7 +112,7 @@ export default function OptionsProfile(): JSX.Element | null {
       </ul>
 
       <button
-        onClick={() => deslogar()}
+        onClick={deslogar}
         className="mt-auto flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-800 hover:text-slate-800"
       >
         <FontAwesomeIcon

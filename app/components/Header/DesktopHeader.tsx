@@ -76,17 +76,25 @@ export function DesktopHeader() {
           </button>
           
           <button 
-          onClick={()=>setShowNotifications(!showNotifications)}
-          className={`hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700
-            ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
-            `}>
-            <FontAwesomeIcon icon={faBell} className="h-5 w-5 text-slate-600" />
+            onClick={() => setShowNotifications(!showNotifications)}
+            className={`relative flex h-11 w-11 items-center justify-center rounded-full border transition-colors
+              ${theme === 'light' ? 'border-orange-600' : 'border-orange-700'}
+              hover:bg-orange-600`}
+          >
+            {/* Badge de notificação */}
+            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] text-white font-bold shadow-md">
+              1+
+            </span>
+
+            {/* Ícone do sino */}
+            <FontAwesomeIcon icon={faBell} className="h-5 w-5 text-orange-400" />
           </button>
+
           
           {isLogged ? (
             <button 
-              onClick={() => setShowOptionsProfile(!showOptionsProfile)} 
-              className="h-11 w-11 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center p-0 hover:ring-2 hover:ring-gray-400"
+              onClick={() => setShowOptionsProfile(true)} 
+              className="h-12 w-12 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center p-0 hover:ring-2 hover:ring-gray-400"
             >
               <img 
                 src="/user1.jpg" 

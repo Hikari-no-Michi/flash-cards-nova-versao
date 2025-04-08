@@ -1,18 +1,25 @@
 "use client";
 
-import { themeAtom } from "@/store";
+import { reviewedQuestionsAtom, themeAtom } from "@/store";
 import { useAtom } from "jotai";
 
 export default function CardGame() {
-  const errei = () => {
+  const [theme] = useAtom(themeAtom);
+  const [reviewedQuestions, setReviewedQuestions] = useAtom(reviewedQuestionsAtom);
+  
+  const errei = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     console.log("Você clicou em: Errei");
   };
-
-  const acertei = () => {
+  
+  const acertei = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     console.log("Você clicou em: Acertei");
   };
 
-  const [theme] = useAtom(themeAtom);
+  
 
   return (
     <>
@@ -28,7 +35,7 @@ export default function CardGame() {
         </div>
         <div className="flex w-full mt-10 h-3 justify-center items-center mt-10 gap-4">
           <button
-            onClick={errei}
+            onClick={(e)=> errei(e)}
             className={`w-1/2 text-sm p-2 font-semibold text-center rounded-full
                 ${
                 theme === "light"
@@ -40,7 +47,7 @@ export default function CardGame() {
             Errei
           </button>
           <button
-            onClick={acertei}
+            onClick={(e)=>acertei(e)}
             className={`w-1/2  text-sm p-2 font-semibold text-center rounded-full
                 ${
                     theme === "light"
