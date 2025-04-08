@@ -10,10 +10,11 @@ import React from 'react';
 import { LoginForm } from './components/Login/DesktopLogin';
 import Notifications from './components/Notification';
 import OptionsProfile from './components/OptionsProfile';
-import { themeAtom } from '@/store';
+import { isLoggedAtom, themeAtom } from '@/store';
 
 export default function Home() {
   const [theme] = useAtom(themeAtom);
+  const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
   return (    
     <div className={`flex h-screen overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-[#101828]'} z-5`}>
       <Sidebar />
@@ -30,10 +31,10 @@ export default function Home() {
       <div>
         <LoginForm />
       </div>      
-      <div className='relative right-[70px]'>
+      <div className={`relative ${isLogged === true ? 'right-[70px]' : 'right-[97px]' }`}>
         <Notifications />
       </div>
-      <div className='relative right-[20px]'>
+      <div className={`relative ${isLogged === true ? 'right-[20px]' : 'right-[20px]' }`}>
         <OptionsProfile />
       </div>
     </div>

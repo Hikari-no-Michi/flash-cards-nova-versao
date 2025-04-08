@@ -27,7 +27,10 @@ export default function Notifications(): JSX.Element | null {
     };
   }, [showNotifications, setShowNotifications]);
 
+  
+
   if (!showNotifications) return null;
+
 
   return (
     <div

@@ -20,6 +20,8 @@ export function DesktopHeader() {
   const [showNotifications, setShowNotifications] = useAtom(ShowNotifications);
   const [showOptionsProfile, setShowOptionsProfile] = useAtom(ShowOptionsProfile);
 
+  
+
   return (
     <header className={`w-full top-0 hidden md:flex border-b ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
     md:py-4 lg:py-3 
@@ -74,7 +76,7 @@ export function DesktopHeader() {
           </button>
           
           <button 
-          onClick={()=>setShowNotifications( !showNotifications)}
+          onClick={()=>setShowNotifications(!showNotifications)}
           className={`hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700
             ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
             `}>
@@ -83,7 +85,7 @@ export function DesktopHeader() {
           
           {isLogged ? (
             <button 
-              onClick={() => setShowOptionsProfile( !showOptionsProfile)} 
+              onClick={() => setShowOptionsProfile(!showOptionsProfile)} 
               className="h-11 w-11 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center p-0 hover:ring-2 hover:ring-gray-400"
             >
               <img 
