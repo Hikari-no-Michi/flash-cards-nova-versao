@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -19,7 +19,16 @@ export function DesktopHeader() {
   const [showModal, setShowModal] = useAtom(modalLoginAtom);
   const [showNotifications, setShowNotifications] = useAtom(ShowNotifications);
   const [showOptionsProfile, setShowOptionsProfile] = useAtom(ShowOptionsProfile);
+  const [isNotificationsState, setIsNotificationsState] = useState<boolean>(false);
+  const [isOptionsProfile, setIsOptionsProfile] = useState<boolean>(false);
 
+  useEffect (()=>{
+    setShowNotifications(isNotificationsState);
+  }, [isNotificationsState]);
+
+  useEffect (()=>{
+    setShowOptionsProfile(isOptionsProfile);
+  }, [isOptionsProfile]);
   
 
   return (
@@ -76,7 +85,7 @@ export function DesktopHeader() {
           </button>
           
           <button 
-            onClick={() => setShowNotifications(!showNotifications)}
+            onClick={() => setIsNotificationsState(!isNotificationsState)}
             className={`relative flex h-11 w-11 items-center justify-center rounded-full border transition-colors
               ${theme === 'light' ? 'border-orange-600' : 'border-orange-700'}
               hover:bg-orange-600`}
@@ -93,7 +102,7 @@ export function DesktopHeader() {
           
           {isLogged ? (
             <button 
-              onClick={() => setShowOptionsProfile(true)} 
+              onClick={() => setIsOptionsProfile(!isOptionsProfile)} 
               className="h-12 w-12 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center p-0 hover:ring-2 hover:ring-gray-400"
             >
               <img 
