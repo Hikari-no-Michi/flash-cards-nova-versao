@@ -98,19 +98,22 @@ export default function Notifications(): JSX.Element | null {
             </>
           ) : (
             <li>
-              <div className="flex flex-col gap-2 rounded-lg border border-yellow-300 bg-yellow-50 p-4 text-yellow-800 shadow">
-                <p className="font-semibold">🌟 Oferta exclusiva!</p>
-                <p>
-                  A plataforma está com <strong>70% de desconto</strong>: acesse todo o conteúdo por apenas <strong>R$39/mês</strong> <span className='line-through'>(de R$279)</span>.
-                </p>
-                <div className="text-sm text-red-600 font-bold">
-                  Oferta expira em: {formatTime(timeLeft)}
-                </div>
-                <button className="mt-2 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white shadow hover:bg-red-700 transition-all">
-                  Quero aproveitar essa oportunidade agora!
-                </button>
+            <div className="flex flex-col gap-2 rounded-lg border border-red-300 bg-red-50 p-4 text-red-800 shadow">
+              <p className="font-semibold">🌟 Oferta exclusiva por tempo limitado!</p>
+              <p>
+                Assine <strong>6 meses adiantados</strong> por apenas <strong>R$114,00</strong> (6 meses de R$19,00) e tenha acesso ilimitado para estudar à vontade!
+              </p>
+              <p className="text-sm">
+                <span className="line-through text-gray-500">Valor Normal: R$285 Reais</span> — você economiza <br/><strong className='text-red-900'>R$ 171 (60%)</strong> com essa oferta!
+              </p>
+              <div className="text-sm text-red-600 font-bold">
+                Oferta expira em: {formatTime(timeLeft)}
               </div>
-            </li>
+              <button className="mt-2 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white shadow hover:bg-red-700 transition-all">
+                Quero aproveitar essa oportunidade agora!
+              </button>
+            </div>
+          </li>
           )}
         </ul>
       </div>

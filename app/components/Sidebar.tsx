@@ -2,7 +2,7 @@
 import { useRef, useEffect } from 'react';
 import { useAtom } from 'jotai';
 import PremiumPlanCard from './PremiumPlanCard';
-import { faChartBar, faClipboardList, faEllipsisH, faMoneyCheck, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faClipboardList, faCube, faEllipsisH, faMoneyCheck, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isLoggedAtom, sidebarToggleAtom, themeAtom } from '@/store';
 
@@ -95,6 +95,22 @@ export default function Sidebar() {
                 )}
                 </a>
               </li>
+
+              <li>
+                <a href="" className={`menu-item group menu-item-inactive text-sm flex justify-start items-center gap-2
+                  ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
+                  ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
+                  `}>
+                  <FontAwesomeIcon
+                    icon={faCube}
+                    className="w-[24px] h-[24px]"
+                  /> 
+                  {!sidebarToggle && (
+                    <>Disciplina</>
+                  )}
+                </a>
+              </li>
+
 
               {isLogged && (
                 <li>

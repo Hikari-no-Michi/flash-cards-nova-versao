@@ -13,6 +13,7 @@ interface IUserAtom {
   _id: string;
   username: string;
   password: string;
+  fullName?: string;
   email?: string;
   role: 'user' | 'admin';
   status: 'active' | 'inactive';

@@ -12,6 +12,8 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { isLoggedAtom, modalLoginAtom, ShowNotifications, ShowOptionsProfile, sidebarToggleAtom, themeAtom, userAtom } from '@/store';
+import NotificationBadge from '../NotificationBadge';
+import NotificationButton from '../ButtonNotifications';
 
 export function DesktopHeader() {
   const [_, setSidebarToggle] = useAtom(sidebarToggleAtom);
@@ -21,8 +23,10 @@ export function DesktopHeader() {
   const [showNotifications, setShowNotifications] = useAtom(ShowNotifications);
   const [showOptionsProfile, setShowOptionsProfile] = useAtom(ShowOptionsProfile);
   const [user, setUser] = useAtom(userAtom);
+  
 
   return (
+    <>
     <header className={`w-full top-0 hidden md:flex border-b ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
     md:py-4 lg:py-3 
     `}>
@@ -70,26 +74,14 @@ export function DesktopHeader() {
             {theme === 'light' ? (
               <FontAwesomeIcon icon={faMoon} className="h-5 w-5 text-slate-600" />
             ): (
-              <FontAwesomeIcon icon={faSun} className="h-5 w-5 text-slate-600" />
+              <FontAwesomeIcon icon={faSun} className="h-5 w-5 text-slate-400" />
             )}
             
           </button>
+
           
-          <button 
-            onClick={() => setShowNotifications(true)}
-            className={`relative flex h-11 w-11 items-center justify-center rounded-full border transition-colors
-              ${theme === 'light' ? 'border-orange-600' : 'border-orange-700'}
-              hover:bg-orange-600`}
-          >
-            {/* Badge de notificação */}
-            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] text-white font-bold shadow-md">
-              1+
-            </span>
-
-            {/* Ícone do sino */}
-            <FontAwesomeIcon icon={faBell} className="h-5 w-5 text-orange-400" />
-          </button>
-
+          <NotificationButton  />
+          
           
           {isLogged ? (
             <div className='flex justify-center items-center gap-2'>
@@ -104,7 +96,9 @@ export function DesktopHeader() {
               />
             </button>
             <div className="flex items-center gap-1 cursor-pointer" onClick={() => setShowOptionsProfile(true)}>
-            <p className="text-sm w-[100px] truncate whitespace-nowrap overflow-hidden">
+            <p className={`text-sm w-[100px] truncate whitespace-nowrap overflow-hidden
+              ${theme === 'light'? 'text-slate-700': 'text-slate-400'}
+            `}>
               @{user?.username}
             </p>
               <FontAwesomeIcon icon={faChevronDown} className="h-3 w-3 text-slate-600" />
@@ -122,5 +116,16 @@ export function DesktopHeader() {
         </div>
       </div>
     </header>
+    {!isLogged && (
+      <p className='text-center bg-gray-500 h-30px w-full text-white'>
+      Você não está logado
+      </p>
+    )}
+    {isLogged && user?.paymentStatus === 'unpaid' && (
+      <p className='text-center bg-red-500 h-30px w-full text-white'>
+      Acesso Gratuito Por 2 Dias. 
+      </p>
+    )}  
+    </>
   );
 }

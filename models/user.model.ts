@@ -2,17 +2,19 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 interface IUser extends Document {
   username: string;
+  fullName?: string;
   password: string;
   email?: string;
   role: 'user' | 'admin';
   status: 'active' | 'inactive';
   paymentStatus: 'paid' | 'unpaid';
-  paymentDate?: Date;
+  paymentDate?: Date | null;
 }
 
 const UserSchema: Schema = new Schema(
   {
     username: { type: String, required: true, unique: true },
+    fullName: { type: String }, 
     password: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },

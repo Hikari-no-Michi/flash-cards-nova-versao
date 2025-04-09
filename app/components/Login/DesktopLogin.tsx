@@ -41,9 +41,11 @@ export function LoginForm() {
         setShowModal(false);              
       } else {
         alert(data.message || 'Erro ao fazer login.');
+        setLoading(false)
       }
     } catch (error) {
       alert('Erro na requisição.');
+      setLoading(false)
     }
   };
 

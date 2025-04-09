@@ -66,8 +66,8 @@ export default function OptionsProfile(): JSX.Element | null {
       <hr className="my-2" />
 
       <div>
-        <span className="block text-sm font-medium text-gray-700">
-          @{user?.username}
+        <span className="block text-sm font-medium text-gray-700 bg-sky-200">
+          {user?.fullName}
         </span>
         <span className="mt-0.5 block text-sm text-gray-500">
           {user?.email}
