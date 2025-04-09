@@ -9,8 +9,9 @@ import {
   faSearch,
   faMoon,
   faUserSecret,
+  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { isLoggedAtom, modalLoginAtom, ShowNotifications, ShowOptionsProfile, sidebarToggleAtom, themeAtom } from '@/store';
+import { isLoggedAtom, modalLoginAtom, ShowNotifications, ShowOptionsProfile, sidebarToggleAtom, themeAtom, userAtom } from '@/store';
 
 export function DesktopHeader() {
   const [_, setSidebarToggle] = useAtom(sidebarToggleAtom);
@@ -19,17 +20,7 @@ export function DesktopHeader() {
   const [showModal, setShowModal] = useAtom(modalLoginAtom);
   const [showNotifications, setShowNotifications] = useAtom(ShowNotifications);
   const [showOptionsProfile, setShowOptionsProfile] = useAtom(ShowOptionsProfile);
-  const [isNotificationsState, setIsNotificationsState] = useState<boolean>(false);
-  const [isOptionsProfile, setIsOptionsProfile] = useState<boolean>(false);
-
-  useEffect (()=>{
-    setShowNotifications(isNotificationsState);
-  }, [isNotificationsState]);
-
-  useEffect (()=>{
-    setShowOptionsProfile(isOptionsProfile);
-  }, [isOptionsProfile]);
-  
+  const [user, setUser] = useAtom(userAtom);
 
   return (
     <header className={`w-full top-0 hidden md:flex border-b ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'}
@@ -85,7 +76,7 @@ export function DesktopHeader() {
           </button>
           
           <button 
-            onClick={() => setIsNotificationsState(!isNotificationsState)}
+            onClick={() => setShowNotifications(true)}
             className={`relative flex h-11 w-11 items-center justify-center rounded-full border transition-colors
               ${theme === 'light' ? 'border-orange-600' : 'border-orange-700'}
               hover:bg-orange-600`}
@@ -101,16 +92,24 @@ export function DesktopHeader() {
 
           
           {isLogged ? (
+            <div className='flex justify-center items-center gap-2'>
             <button 
-              onClick={() => setIsOptionsProfile(!isOptionsProfile)} 
+              onClick={() => setShowOptionsProfile(true)} 
               className="h-12 w-12 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center p-0 hover:ring-2 hover:ring-gray-400"
             >
               <img 
-                src="/user1.jpg" 
+                src="/user-profile.png" 
                 alt="User profile" 
                 className="h-full w-full object-cover" 
               />
             </button>
+            <div className="flex items-center gap-1 cursor-pointer" onClick={() => setShowOptionsProfile(true)}>
+            <p className="text-sm w-[100px] truncate whitespace-nowrap overflow-hidden">
+              @{user?.username}
+            </p>
+              <FontAwesomeIcon icon={faChevronDown} className="h-3 w-3 text-slate-600" />
+            </div>
+          </div>
           ) : (
             <div
               onClick={() => setShowModal(true)}

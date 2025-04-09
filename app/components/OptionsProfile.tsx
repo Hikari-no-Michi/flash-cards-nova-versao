@@ -8,7 +8,7 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { authTokenAtom, isLoading, isLoggedAtom, ShowOptionsProfile } from "@/store";
+import { authTokenAtom, isLoading, isLoggedAtom, ShowOptionsProfile, userAtom } from "@/store";
 
 export default function OptionsProfile(): JSX.Element | null {
   const [showOptionsProfile, setShowOptionsProfile] =
@@ -16,12 +16,14 @@ export default function OptionsProfile(): JSX.Element | null {
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
   const [loading, setLoading] = useAtom(isLoading);
   const [token, setToken] = useAtom(authTokenAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   const profileRef = useRef<HTMLDivElement>(null);
 
   function deslogar(): void {
     setIsLogged(false);
     setToken(null);
+    setUser(null);
     setLoading(false);
     setShowOptionsProfile(false);
   }
@@ -65,10 +67,10 @@ export default function OptionsProfile(): JSX.Element | null {
 
       <div>
         <span className="block text-sm font-medium text-gray-700">
-          Luiz Henrique
+          @{user?.username}
         </span>
         <span className="mt-0.5 block text-sm text-gray-500">
-          oliveirachaves.ch97@gmail.com
+          {user?.email}
         </span>
       </div>
 

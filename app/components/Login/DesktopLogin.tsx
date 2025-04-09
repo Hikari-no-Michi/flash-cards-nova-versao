@@ -1,5 +1,5 @@
 'use client';
-import { authTokenAtom, isLoading, isLoggedAtom, modalLoginAtom } from '@/store';
+import { authTokenAtom, isLoading, isLoggedAtom, modalLoginAtom, userAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { useRef, useState } from 'react';
 
@@ -8,6 +8,7 @@ export function LoginForm() {
   const [__, setIsLogged] = useAtom(isLoggedAtom);
   const [token, setToken] = useAtom(authTokenAtom);
   const [loading, setLoading] = useAtom(isLoading);
+  const [user, setUser] = useAtom(userAtom);
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -34,9 +35,10 @@ export function LoginForm() {
       const data = await response.json();
 
       if (response.ok) {
-        setToken(data.token)
+        setToken(data.token);
+        setUser(data.user);
         setIsLogged(true);
-        setShowModal(false);        
+        setShowModal(false);              
       } else {
         alert(data.message || 'Erro ao fazer login.');
       }

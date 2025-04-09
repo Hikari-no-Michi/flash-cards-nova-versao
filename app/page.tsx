@@ -31,7 +31,7 @@ export default function Home() {
       <div>
         <LoginForm />
       </div>      
-      <div className={`relative ${isLogged === true ? 'right-[70px]' : 'right-[97px]' }`}>
+      <div className={`relative ${isLogged === true ? 'right-[200px]' : 'right-[97px]' }`}>
         <Notifications />
       </div>
       <div className={`relative ${isLogged === true ? 'right-[20px]' : 'right-[20px]' }`}>
