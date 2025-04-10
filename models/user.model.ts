@@ -9,12 +9,13 @@ interface IUser extends Document {
   status: 'active' | 'inactive';
   paymentStatus: 'paid' | 'unpaid';
   paymentDate?: Date | null;
+  createdAt: Date;
 }
 
 const UserSchema: Schema = new Schema(
   {
     username: { type: String, required: true, unique: true },
-    fullName: { type: String }, 
+    fullName: { type: String },
     password: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
@@ -23,7 +24,7 @@ const UserSchema: Schema = new Schema(
     paymentDate: { type: Date, default: null },
   },
   {
-    timestamps: true,
+    timestamps: true, 
   }
 );
 

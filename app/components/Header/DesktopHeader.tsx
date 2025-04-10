@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBars,
@@ -11,7 +11,7 @@ import {
   faUserSecret,
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { isLoggedAtom, modalLoginAtom, ShowNotifications, ShowOptionsProfile, sidebarToggleAtom, themeAtom, userAtom } from '@/store';
+import { isLoggedAtom, isTrialExpiredAtom, modalLoginAtom, ShowNotifications, ShowOptionsProfile, sidebarToggleAtom, themeAtom, userAtom } from '@/store';
 import NotificationBadge from '../NotificationBadge';
 import NotificationButton from '../ButtonNotifications';
 
@@ -23,7 +23,24 @@ export function DesktopHeader() {
   const [showNotifications, setShowNotifications] = useAtom(ShowNotifications);
   const [showOptionsProfile, setShowOptionsProfile] = useAtom(ShowOptionsProfile);
   const [user, setUser] = useAtom(userAtom);
+  const isExpired = useAtomValue(isTrialExpiredAtom);
+  const [userStatus, setUserStatus] = useState<string>("loading");
   
+  useEffect(() => {
+      if (isExpired === 'loading') return;
+    
+      if (isExpired === 'expired') {
+        setUserStatus("Período de 2 dias gratuitos acabou!")
+      }
+    
+      if (isExpired === 'paid') {
+        setUserStatus("Usuário já realizou o pagamento.")
+      }
+
+      if (isExpired === 'trial_active') {
+        setUserStatus("Acesso Gratuito Por 2 Dias.")
+      }
+    }, [isExpired]);  
 
   return (
     <>
@@ -123,7 +140,7 @@ export function DesktopHeader() {
     )}
     {isLogged && user?.paymentStatus === 'unpaid' && (
       <p className='text-center bg-red-500 h-30px w-full text-white'>
-      Acesso Gratuito Por 2 Dias. 
+      {userStatus}
       </p>
     )}  
     </>

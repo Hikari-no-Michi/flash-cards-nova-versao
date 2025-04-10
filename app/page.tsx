@@ -1,3 +1,4 @@
+"use client"
 import AtomProvider from '@/providers/AtomProvider';
 import dynamic from 'next/dynamic';
 

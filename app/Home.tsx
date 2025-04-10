@@ -3,18 +3,24 @@ import Head from 'next/head';
 import { DesktopHeader } from './components/Header/DesktopHeader';
 import { MobileHeader } from './components/Header/MobileHeader';
 import Sidebar from './components/Sidebar';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import CardEstatistica from './components/Home/CardEstatistica';
 import CardGame from './components/Home/CardGame';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginForm } from './components/Login/DesktopLogin';
 import Notifications from './components/Notification';
 import OptionsProfile from './components/OptionsProfile';
-import { isLoggedAtom, themeAtom } from '@/store';
+import { authTokenAtom, isLoggedAtom, isTrialExpiredAtom, themeAtom, userAtom } from '@/store';
+import { useAuthLogger } from '@/hooks/UserUpdater';
 
 export default function Home() {
+  const [user, setUser] = useAtom(userAtom);
+  const [token] = useAtom(authTokenAtom);
   const [theme] = useAtom(themeAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
+  
+  useAuthLogger({ token, isLogged, user, setUser });  
+  
   return (    
     <div className={`flex h-screen overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-[#101828]'} z-5`}>
       <Sidebar />
