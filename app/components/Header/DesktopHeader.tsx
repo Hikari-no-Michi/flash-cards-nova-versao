@@ -12,7 +12,6 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { isLoggedAtom, isTrialExpiredAtom, modalLoginAtom, ShowNotifications, ShowOptionsProfile, sidebarToggleAtom, themeAtom, userAtom } from '@/store';
-import NotificationBadge from '../NotificationBadge';
 import NotificationButton from '../ButtonNotifications';
 
 export function DesktopHeader() {
@@ -25,7 +24,7 @@ export function DesktopHeader() {
   const [user, setUser] = useAtom(userAtom);
   const isExpired = useAtomValue(isTrialExpiredAtom);
   const [userStatus, setUserStatus] = useState<string>("loading");
-  
+
   useEffect(() => {
       if (isExpired === 'loading') return;
     

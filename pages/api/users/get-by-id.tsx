@@ -18,8 +18,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-
     
+    console.log(decoded);
 
     await database.connect();
 

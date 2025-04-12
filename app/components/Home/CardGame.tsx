@@ -1,22 +1,42 @@
 "use client";
 
-import { reviewedQuestionsAtom, themeAtom } from "@/store";
+import { reviewedQuestionsAtom, ReviewedQuestionType, themeAtom } from "@/store";
 import { useAtom } from "jotai";
 
 export default function CardGame() {
   const [theme] = useAtom(themeAtom);
+
   const [reviewedQuestions, setReviewedQuestions] = useAtom(reviewedQuestionsAtom);
+
+  const addReviewedQuestion = (
+    userId: string,
+    questionId: string,
+    status: 'correct' | 'incorrect',
+    materiaId: string
+  ) => {
+    const newReviewedQuestion: ReviewedQuestionType = {
+      userId,
+      questionId,
+      status,
+      materiaId,
+      createdAt: new Date(),
+    };
+
+    setReviewedQuestions([...reviewedQuestions, newReviewedQuestion]);
+  };
   
   const errei = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
     console.log("Você clicou em: Errei");
+    //addReviewedQuestion()
   };
   
   const acertei = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
     console.log("Você clicou em: Acertei");
+    //addReviewedQuestion()
   };
 
   

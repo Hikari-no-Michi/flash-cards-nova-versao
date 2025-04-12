@@ -7,11 +7,13 @@ import { useAtom, useAtomValue } from 'jotai';
 import CardEstatistica from './components/Home/CardEstatistica';
 import CardGame from './components/Home/CardGame';
 import React, { useEffect, useState } from 'react';
-import { LoginForm } from './components/Login/DesktopLogin';
+import { LoginForm } from './components/CRUD/LoginForm';
 import Notifications from './components/Notification';
 import OptionsProfile from './components/OptionsProfile';
 import { authTokenAtom, isLoggedAtom, isTrialExpiredAtom, themeAtom, userAtom } from '@/store';
 import { useAuthLogger } from '@/hooks/UserUpdater';
+import PlanSelector from './components/SeletorDePlanos';
+import { RegisterForm } from './components/CRUD/RegisterForm';
 
 export default function Home() {
   const [user, setUser] = useAtom(userAtom);
@@ -37,6 +39,7 @@ export default function Home() {
 
       
       <LoginForm />
+      <RegisterForm />
            
       <div className={`relative ${isLogged === true ? 'right-[200px]' : 'right-[97px]' }`}>
         <Notifications />
@@ -44,6 +47,10 @@ export default function Home() {
       
       <div className={`relative ${isLogged === true ? 'right-[20px]' : 'right-[20px]' }`}>
         <OptionsProfile />
+      </div>
+
+      <div>
+        <PlanSelector />
       </div>
     </div>
   );

@@ -33,17 +33,6 @@ const NotificationButton: React.FC = () => {
         `} />
         </button>
     )}
-
-    {!isLogged && (
-        <button
-        onClick={() => setShowNotifications(true)}
-        className={`relative flex h-11 w-11 items-center justify-center rounded-full border transition-colors border-red-500`}
-        >
-        <NotificationBadge value={temNoticiation.listNotifications.length}/>
-        <FontAwesomeIcon icon={faBell} className={`h-5 w-5 ${bellColor}`} />
-        </button>
-    )}
-    
     </>
   );
 };

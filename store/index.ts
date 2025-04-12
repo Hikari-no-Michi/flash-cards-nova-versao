@@ -3,12 +3,6 @@ import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import dayjs from 'dayjs';
 
-export interface IReviewedQuestion {
-    userId: string;
-    questionId: string;
-    status: 'correct' | 'incorrect';
-    materiaId: string;
-}
 
 interface IUserAtom {
   _id: string;
@@ -22,6 +16,16 @@ interface IUserAtom {
   paymentDate?: string | null;
 }
 
+export interface ReviewedQuestionType {
+  userId: string;
+  questionId: string;
+  status: 'correct' | 'incorrect';
+  materiaId: string;
+  createdAt?: Date; // opcional, caso queira armazenar
+}
+
+export const reviewedQuestionsAtom = atom<ReviewedQuestionType[]>([]);
+
 export const themeAtom = atom<'light' | 'dark'>('light');
 
 export const authTokenAtom = atomWithStorage<string | null>('token', null);
@@ -34,11 +38,11 @@ export const sidebarToggleAtom = atomWithStorage<boolean>('sidebar', true);
 
 export const modalLoginAtom = atom(false);
 
+export const isRegisterFormAtom = atom(false);
+
 export const ShowNotifications = atom(false);
 
 export const ShowOptionsProfile = atom(false);
-
-export const reviewedQuestionsAtom = atom<IReviewedQuestion[]>([]);
 
 export const userAtom = atomWithStorage<IUserAtom | null>('user', null);
 
@@ -53,10 +57,6 @@ export const isTrialExpiredAtom = atom((get) => {
   const createdAt = user.createdAt;
   if (!createdAt) return 'no_createdAt';
 
-  console.log("------------------------------")
-  console.log(createdAt)
-  console.log("------------------------------")
-
   const expirationDate = dayjs(createdAt).add(2, 'day');
   const now = dayjs();
   const isExpired = now.isAfter(expirationDate);
@@ -67,11 +67,5 @@ export const isTrialExpiredAtom = atom((get) => {
 
   return 'trial_active';
 });
-
-
-
-
-
-
 
 

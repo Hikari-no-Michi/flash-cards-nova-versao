@@ -1,5 +1,6 @@
-"use client"
-import { useEffect, useRef, useState } from 'react';
+'use client';
+
+import { useRef } from 'react';
 import { useAtom } from 'jotai';
 import { isLoggedAtom, ShowNotifications } from '@/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,45 +8,9 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 export default function Notifications(): JSX.Element | null {
   const [showNotifications, setShowNotifications] = useAtom(ShowNotifications);
+  
   const notificationRef = useRef<HTMLDivElement>(null);
   const [isLogged] = useAtom(isLoggedAtom);
-  
-  const [timeLeft, setTimeLeft] = useState(7100);
-
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-  
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (seconds: number): string => {
-    const h = String(Math.floor(seconds / 3600)).padStart(2, '0');
-    const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
-    const s = String(seconds % 60).padStart(2, '0');
-    return `${h}:${m}:${s}`;
-  };
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        notificationRef.current &&
-        !notificationRef.current.contains(event.target as Node)
-      ) {
-        setShowNotifications(false);
-      }
-    }
-
-    if (showNotifications) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showNotifications, setShowNotifications]);
 
   if (!showNotifications) return null;
 
@@ -66,10 +31,9 @@ export default function Notifications(): JSX.Element | null {
 
       <hr className="my-2" />
 
-      {/* Conteúdo com scroll */}
       <div className="flex-1 overflow-y-auto custom-scrollbar">
         <ul className="flex flex-col">
-          {isLogged ? (
+          {isLogged && (
             <>
               <li>
                 <a
@@ -96,29 +60,10 @@ export default function Notifications(): JSX.Element | null {
                 </a>
               </li>
             </>
-          ) : (
-            <li>
-            <div className="flex flex-col gap-2 rounded-lg border border-red-300 bg-red-50 p-4 text-red-800 shadow">
-              <p className="font-semibold">🌟 Oferta exclusiva por tempo limitado!</p>
-              <p>
-                Assine <strong>6 meses adiantados</strong> por apenas <strong>R$114,00</strong> (6 meses de R$19,00) e tenha acesso ilimitado para estudar à vontade!
-              </p>
-              <p className="text-sm">
-                <span className="line-through text-gray-500">Valor Normal: R$285 Reais</span> — você economiza <br/><strong className='text-red-900'>R$ 171 (60%)</strong> com essa oferta!
-              </p>
-              <div className="text-sm text-red-600 font-bold">
-                Oferta expira em: {formatTime(timeLeft)}
-              </div>
-              <button className="mt-2 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white shadow hover:bg-red-700 transition-all">
-                Quero aproveitar essa oportunidade agora!
-              </button>
-            </div>
-          </li>
           )}
         </ul>
       </div>
 
-      {/* Botão fixo no fundo */}
       <div className="pt-2">
         <a
           href="#"
