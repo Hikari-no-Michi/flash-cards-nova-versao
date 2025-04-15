@@ -24,6 +24,7 @@ export function DesktopHeader() {
   const [user, setUser] = useAtom(userAtom);
   const isExpired = useAtomValue(isTrialExpiredAtom);
   const [userStatus, setUserStatus] = useState<string>("loading");
+  
 
   function getRandomImage() {
     const images = [

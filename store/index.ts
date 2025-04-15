@@ -24,6 +24,8 @@ export interface ReviewedQuestionType {
   createdAt?: Date; 
 }
 
+export const paginaAtom = atom('PageDashboard');
+
 export const reviewedQuestionsAtom = atom<ReviewedQuestionType[]>([]);
 
 export const themeAtom = atom<'light' | 'dark'>('light');

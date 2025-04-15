@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { LoginForm } from './components/CRUD/DesktopLogin';
 import Notifications from './components/Notification';
 import OptionsProfile from './components/OptionsProfile';
-import { authTokenAtom, isLoggedAtom, isTrialExpiredAtom, themeAtom, userAtom } from '@/store';
+import { authTokenAtom, isLoggedAtom, isTrialExpiredAtom, paginaAtom, themeAtom, userAtom } from '@/store';
 import { useAuthLogger } from '@/hooks/UserUpdater';
 import PlanSelector from './components/SeletorDePlanos';
 import { RegisterForm } from './components/CRUD/RegisterForm';
@@ -21,6 +21,7 @@ export default function Home() {
   const [token] = useAtom(authTokenAtom);
   const [theme] = useAtom(themeAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
+  const [pagina, setPagina] = useAtom(paginaAtom);
   
   useAuthLogger({ token, isLogged, user, setUser });  
   
@@ -32,8 +33,12 @@ export default function Home() {
         <MobileHeader />
         <div className={`p-4 mx-auto w-full md:p-6 ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-[#101828] border-gray-800'} h-screen`}>
           <div className={`grid grid-cols-12 gap-4 md:gap-6`}>            
-           {/* <CardGame /> */}
+           {pagina==='PageDashboard' && (
             <CardDashboard />
+           )}
+           {pagina==='PageCardGame' && (
+            <CardGame />
+           )}            
             <CardEstatistica />           
           </div>
         </div>

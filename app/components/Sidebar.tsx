@@ -4,13 +4,14 @@ import { useAtom } from 'jotai';
 import PremiumPlanCard from './PremiumPlanCard';
 import { faChartBar, faClipboardList, faCube, faEllipsisH, faMoneyCheck, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isLoggedAtom, sidebarToggleAtom, themeAtom } from '@/store';
+import { isLoggedAtom, paginaAtom, sidebarToggleAtom, themeAtom } from '@/store';
 
 
 export default function Sidebar() {
   const [sidebarToggle] = useAtom(sidebarToggleAtom);
   const [theme] = useAtom(themeAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
+  const [pagina, setPagina] = useAtom(paginaAtom);
 
   return (
     <aside
@@ -27,12 +28,12 @@ export default function Sidebar() {
 }
     >
       <div className="sidebar-header flex items-center gap-2 pt-8 pb-7 justify-center">
-        <a href="">
+        <a onClick={()=> setPagina("PageDashboard")}>
           {sidebarToggle ? (
-            <h3 className={`text-xl font-bold text-center ${theme === 'light' ? 'bg-[#556B2F] text-white' : 'bg-[#799845]'}`}>ACM </h3>
+            <h3 className={`cursor-pointer text-xl font-bold text-center ${theme === 'light' ? 'bg-[#556B2F] text-white' : 'bg-[#799845]'}`}>ACM </h3>
             
           ) : (
-            <h3 className={`text-xl font-bold text-center ${theme === 'light' ? 'bg-[#556B2F] text-white' : 'bg-[#799845]'} `}>A CARTA NA MANGA </h3>
+            <h3 className={`cursor-pointer text-xl font-bold text-center ${theme === 'light' ? 'bg-[#556B2F] text-white' : 'bg-[#799845]'} `}>A CARTA NA MANGA </h3>
           )}
         </a>
       </div>
@@ -97,7 +98,7 @@ export default function Sidebar() {
               </li>
 
               <li>
-                <a href="" className={`menu-item group menu-item-inactive text-sm flex justify-start items-center gap-2
+                <a onClick={()=> setPagina("PageCardGame")} className={`cursor-pointer menu-item group menu-item-inactive text-sm flex justify-start items-center gap-2
                   ${theme === 'light' ? 'text-[#344054]' : 'text-purple-300'}
                   ${sidebarToggle ? 'justify-center mb-4' : 'justify-start'}
                   `}>
