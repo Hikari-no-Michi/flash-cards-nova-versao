@@ -9,6 +9,10 @@ export default function PlanSelector() {
 
   if (trialStatus !== 'expired') return null
 
+  console.log("--------------------------")
+  console.log(trialStatus)
+  console.log("--------------------------")
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <motion.div 

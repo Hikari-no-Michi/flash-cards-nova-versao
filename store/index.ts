@@ -21,7 +21,7 @@ export interface ReviewedQuestionType {
   questionId: string;
   status: 'correct' | 'incorrect';
   materiaId: string;
-  createdAt?: Date; // opcional, caso queira armazenar
+  createdAt?: Date; 
 }
 
 export const reviewedQuestionsAtom = atom<ReviewedQuestionType[]>([]);

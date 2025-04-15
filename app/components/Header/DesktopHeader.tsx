@@ -25,6 +25,16 @@ export function DesktopHeader() {
   const isExpired = useAtomValue(isTrialExpiredAtom);
   const [userStatus, setUserStatus] = useState<string>("loading");
 
+  function getRandomImage() {
+    const images = [
+      "/profile2.jpg",
+      "/profile1.jpg",
+    ];
+  
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+  }
+
   useEffect(() => {
       if (isExpired === 'loading') return;
     
@@ -106,7 +116,7 @@ export function DesktopHeader() {
               className="h-12 w-12 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center p-0 hover:ring-2 hover:ring-gray-400"
             >
               <img 
-                src="/user-profile.png" 
+                src={getRandomImage()}
                 alt="User profile" 
                 className="h-full w-full object-cover" 
               />

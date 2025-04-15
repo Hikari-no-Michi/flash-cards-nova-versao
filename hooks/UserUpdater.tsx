@@ -59,6 +59,14 @@ export function useAuthLogger({ token, isLogged, user, setUser }: UseAuthLoggerP
             };
           });
 
+          console.log("---------------------------")
+          console.log(user.createdAt)
+          console.log("---------------------------")
+
+          console.log("---------------------------")
+          console.log(data.user.createdAt)
+          console.log("---------------------------")
+
           console.log(`[${new Date().toLocaleTimeString()}] Verificação de pagamento: ${data.user.paymentStatus}`);
         } catch (error) {
           console.error('Erro ao buscar usuário:', error);
@@ -68,7 +76,7 @@ export function useAuthLogger({ token, isLogged, user, setUser }: UseAuthLoggerP
 
     if (!intervalRef.current) {
       fetchUserData();
-      intervalRef.current = setInterval(fetchUserData, 60000);
+      intervalRef.current = setInterval(fetchUserData, 20000);
     }
 
     return () => {
