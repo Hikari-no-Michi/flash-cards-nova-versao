@@ -1,93 +1,80 @@
-'use client'
-
 import { FC, useEffect, useState } from 'react'
-import { useAtom } from 'jotai'
-import { isPlanAtom, selectedPlanAtom, userAtom } from '@/store'
 import axios from 'axios'
 
 const PlanCard: FC = () => {
-  const [isPlan, setIsPlan] = useAtom(isPlanAtom);
-  const [user] = useAtom(userAtom);
-  const [SelectedPlan, setSelectedPlan] = useAtom(selectedPlanAtom)
-  const [qrCodeImage, setQrCodeImage] = useState('');
-  const [pixKey, setPixKey] = useState('');
+  const [qrCodeImage, setQrCodeImage] = useState('')
+  const [pixKey, setPixKey] = useState('')
+  const [selectedPlan, setSelectedPlan] = useState(null)
 
   useEffect(() => {
-    const sendOrderToPagSeguro = async () => {
-      const expirationDate = new Date(
-        Date.now() + 24 * 60 * 60 * 1000
-      ).toISOString().split('.')[0] + "-03:00"
+    const expiration_date = new Date(Date.now() + 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('.')[0] + "-03:00"
 
-      const payload = {
-        reference_id: SelectedPlan?.id,
-        customer: {
-          name: user?.fullName,
-          email: user?.email,
+    const payload = {
+      reference_id: "pedido-semestre-001",
+      customer: {
+        name: "Erica Sousa Alves Correia",
+        email: "aciresousa2@gmail.com",
+        tax_id: "12345678909",
+        phones: [
+          {
+            country: "55",
+            area: "86",
+            number: "994059642",
+            type: "MOBILE",
+          },
+        ],
+      },
+      items: [
+        {
+          name: "mensalidade",
+          quantity: 6,
+          unit_amount: 1900,
         },
-        items: [
-          {
-            name: "mensalidade",
-            quantity: 6,
-            unit_amount: 1900
-          }
-        ],
-        qr_codes: [
-          {
-            amount: {
-              value: 11400
-            },
-            expiration_date: expirationDate
-          }
-        ],
-        notification_urls: [
-          "https://seusite.com.br/notificacoes-pagseguro"
-        ]
-      }
+      ],
+      qr_codes: [
+        {
+          amount: {
+            value: 11400,
+          },
+          expiration_date: expiration_date,
+        },
+      ],
+      notification_urls: ["https://seusite.com.br/notificacoes-pagseguro"],
+    }
 
+    const sendOrderToPagSeguro = async () => {
       try {
-        console.log("Enviando pedido para o PagSeguro com payload:", payload);
-        
-        const response = await axios.post(
-          'https://api.pagseguro.com/orders',
-          payload,
-          {
-            headers: {
-              accept: '*/*',
-              Authorization: 'Bearer 6f774a41-477f-424f-b33c-d64b74a607b897050e6849cb95a0f40522cafba763df3e1f-624a-4262-9b8c-87ee374a3d14',
-              'Content-Type': 'application/json'
-            }
-          }
-        )
+        const response = await axios.post('https://api.pagseguro.com/orders', payload, {
+          headers: {
+            accept: '*/*',
+            Authorization: 'Bearer 6f774a41-477f-424f-b33c-d64b74a607b897050e6849cb95a0f40522cafba763df3e1f-624a-4262-9b8c-87ee374a3d14',
+            'Content-Type': 'application/json',
+          },
+        })
 
-        console.log("Resposta do PagSeguro:", response.data);
-        
-        const data = response.data;
-        setSelectedPlan(data);
+        const data = response.data
 
-        const qrImage = data.qr_codes?.[0]?.links?.find((link: any) => link.media === 'image/png')?.href;
-        const key = data.qr_codes?.[0]?.text;
+        const qrCode = data.qr_codes[0]?.links?.[0]?.href
+        const pixKey = data.qr_codes[0]?.text
 
-        if (qrImage) {
-          console.log("QR Code image URL:", qrImage);
-          setQrCodeImage(qrImage);
+        if (qrCode) {
+          setQrCodeImage(qrCode)
         }
 
-        if (key) {
-          console.log("Chave PIX:", key);
-          setPixKey(key);
+        if (pixKey) {
+          setPixKey(pixKey)
         }
+
+        setSelectedPlan(data)
       } catch (error) {
-        console.error('Erro ao enviar pedido para o PagSeguro:', error);
+        console.error('Erro ao enviar pedido para o PagSeguro:', error)
       }
     }
 
-    if (user) {
-      console.log("Usuário encontrado, enviando pedido para o PagSeguro...");
-      sendOrderToPagSeguro();
-    } else {
-      console.log("Usuário não encontrado, não enviando pedido.");
-    }
-  }, [user, SelectedPlan, setSelectedPlan]);
+    sendOrderToPagSeguro()
+  }, [])
 
   return (
     <div className="p-6 border rounded-xl shadow-lg text-center max-w-xl mx-auto bg-white">
@@ -109,8 +96,7 @@ const PlanCard: FC = () => {
 
       <button
         onClick={() => {
-          console.log("Voltando, resetando o plano selecionado...");
-          setIsPlan(false);
+          console.log('Voltando, resetando o plano selecionado...')
         }}
         className="mt-6 px-6 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800"
       >
@@ -120,4 +106,4 @@ const PlanCard: FC = () => {
   )
 }
 
-export default PlanCard;
+export default PlanCard
