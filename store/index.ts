@@ -3,6 +3,16 @@ import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import dayjs from 'dayjs';
 
+export interface Plan {
+  id: string
+  originalPrice: string
+  discountText: string
+  finalPrice: string
+  duration: string
+  benefits: string[]
+  isPopular: boolean
+  highlightColor: string
+}
 
 interface IUserAtom {
   _id: string;
@@ -69,5 +79,11 @@ export const isTrialExpiredAtom = atom((get) => {
 
   return 'trial_active';
 });
+
+
+export const selectedPlanAtom = atom<Plan | null>(null);
+
+
+export const isPlanAtom = atom<boolean>(false)
 
 
