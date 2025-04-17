@@ -48,10 +48,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const host = req.headers.host;
     const notificationURL = `https://acartanamanga.vercel.app/api/paymentUpdate/${userId}`;
 
+    const finalPriceNum = Math.round(Number(finalPrice) * 100); // Multiplica por 100 e arredonda para centavos
+    const unitAmount = Math.round(finalPriceNum / Number(meses)); // Divide o valor por mês e arredonda para centavos
+
     const payload = {
       reference_id: `pedido-${id}`,
       customer: {
-        name: user.name,
+        name: user.fullName,
         email: user.email,
         tax_id: user.cpf || '12345678909',
         phones: [
@@ -67,19 +70,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         {
           name: 'mensalidade',
           quantity: Number(meses),
-          unit_amount: Math.round(Number(finalPrice) / Number(meses)),
+          unit_amount: unitAmount, // Agora é um número inteiro de centavos
         },
       ],
       qr_codes: [
         {
           amount: {
-            value: Number(finalPrice),
+            value: finalPriceNum, // Aqui também é um número inteiro de centavos
           },
           expiration_date,
         },
       ],
       notification_urls: [notificationURL],
     };
+
 
     const response = await axios.post('https://api.pagseguro.com/orders', payload, {
       headers: {
@@ -92,6 +96,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data = response.data;
     const qrCode = data.qr_codes[0]?.links?.[0]?.href;
     const pixKey = data.qr_codes[0]?.text;
+
+    console.log(data)
 
     return res.status(200).json({
       qrCodeImage: qrCode,

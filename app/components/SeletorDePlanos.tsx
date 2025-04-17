@@ -3,8 +3,8 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { motion } from 'framer-motion'
 import { isPlanAtom, isTrialExpiredAtom, Plan, selectedPlanAtom } from '@/store'
-import PlanCard from './PlanCard'
 import { useState } from 'react'
+import PlanCard from './PlanCard'
 
 export default function PlanSelector() {
   const trialStatus = useAtomValue(isTrialExpiredAtom)
