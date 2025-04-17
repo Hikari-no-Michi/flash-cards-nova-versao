@@ -18,7 +18,7 @@ export default function PlanSelector() {
       id: 'plano12meses',
       originalPrice: 'R$ 156,00',
       discountText: 'ECONOMIZE 75%',
-      finalPrice: 'R$ 39,00/mês',
+      finalPrice: 39.00,
       duration: '*Plano para 12 meses',
       benefits: [
         '✔ R$ 39,00 por mês durante 12 meses',
@@ -27,13 +27,14 @@ export default function PlanSelector() {
         '✔ Estatísticas simplificada de desempenho'
       ],
       isPopular: false,
-      highlightColor: 'gray'
+      highlightColor: 'gray',
+      meses: 12
     },
     {
       id: 'plano6meses',
       originalPrice: 'R$ 75,00',
       discountText: 'ECONOMIZE 63%',
-      finalPrice: 'R$ 27,75/mês',
+      finalPrice: 27.75,
       duration: '*Plano para 6 meses',
       benefits: [
         '✔ R$ 27,00 Reais por mês durante 6 meses',
@@ -41,13 +42,14 @@ export default function PlanSelector() {
         '✔ Criação de Decks colaborativos limitado a 3 decks.'
       ],
       isPopular: true,
-      highlightColor: 'purple'
+      highlightColor: 'purple',
+      meses: 6      
     },
     {
       id: 'plano24meses',
       originalPrice: 'R$ 159,99',
       discountText: 'ECONOMIZE 69%',
-      finalPrice: 'R$ 49,99/mês',
+      finalPrice: 49.99,
       duration: '*Plano para 24 meses',
       benefits: [
         '✔ Todos os recursos avançados liberados',
@@ -58,7 +60,8 @@ export default function PlanSelector() {
         '✔ Flashcards com mapas mentais'
       ],
       isPopular: false,
-      highlightColor: 'gray'
+      highlightColor: 'gray',
+      meses: 24
     }
   ]
 
@@ -84,7 +87,7 @@ export default function PlanSelector() {
         <div className={`mb-1 text-sm inline-block px-2 py-1 rounded-full text-xs font-medium ${isPopular ? 'bg-purple-200 text-purple-700' : 'bg-gray-200 text-gray-700'}`}>
           {plan.discountText}
         </div>
-        <div className={`text-2xl font-bold ${textColor}`}>{plan.finalPrice}</div>
+        <div className={`text-2xl font-bold ${textColor}`}>R$ {plan.finalPrice}/mês</div>
         <div className="text-xs text-gray-500 mb-4">{plan.duration}</div>
         <button onClick={
           () => {

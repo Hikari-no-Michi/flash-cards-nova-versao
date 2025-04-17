@@ -7,11 +7,12 @@ export interface Plan {
   id: string
   originalPrice: string
   discountText: string
-  finalPrice: string
+  finalPrice: number
   duration: string
   benefits: string[]
   isPopular: boolean
   highlightColor: string
+  meses: number
 }
 
 interface IUserAtom {

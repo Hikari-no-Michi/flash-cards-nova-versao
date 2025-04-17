@@ -10,6 +10,7 @@ interface IUser extends Document {
   paymentStatus: 'paid' | 'unpaid';
   paymentDate?: Date | null;
   createdAt: Date;
+  cpf?: string;
 }
 
 const UserSchema: Schema = new Schema(
@@ -22,6 +23,7 @@ const UserSchema: Schema = new Schema(
     status: { type: String, enum: ['active', 'inactive'], default: 'active' },
     paymentStatus: { type: String, enum: ['paid', 'unpaid'], default: 'unpaid' },
     paymentDate: { type: Date, default: null },
+    cpf: { type: String, default: '' },
   },
   {
     timestamps: true, 
