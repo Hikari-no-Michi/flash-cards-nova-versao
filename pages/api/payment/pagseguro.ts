@@ -11,12 +11,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Método não permitido' });
   }
+  
 
   const { token, userId, meses, finalPrice, id } = req.query;
+
+  console.log('Valores recebidos:');
+  console.log('Token:', token);
+  console.log('User ID:', userId);
+  console.log('Meses:', meses);
+  console.log('Preço Final:', finalPrice);
+  console.log('ID do plano:', id);
 
   if (!token || !userId || !meses || !finalPrice || !id) {
     return res.status(400).json({ message: 'Parâmetros obrigatórios ausentes' });
   }
+
+  console.log('-------------\n CORRETO -----------\n');
 
   try {
     const decoded = jwt.verify(token as string, SECRET_KEY);
@@ -36,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const protocol = req.headers['x-forwarded-proto'] || 'https';
     const host = req.headers.host;
-    const notificationURL = `${protocol}://${host}/api/paymentUpdate/${userId}`;
+    const notificationURL = `https://acartanamanga.vercel.app/api/paymentUpdate/${userId}`;
 
     const payload = {
       reference_id: `pedido-${id}`,

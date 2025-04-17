@@ -1,31 +1,28 @@
 import { FC, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useAtom } from 'jotai'
-import { authTokenAtom } from '@/store'
+import { authTokenAtom, selectedPlanAtom, userAtom } from '@/store'
 import { useRouter } from 'next/router'
 
 const PlanCard: FC = () => {
   const [qrCodeImage, setQrCodeImage] = useState('')
   const [pixKey, setPixKey] = useState('')
   const [token] = useAtom(authTokenAtom)
-  const router = useRouter()
+  const [user] = useAtom(userAtom)
+  const [selectedPlan, setSelectedPlan] = useAtom(selectedPlanAtom)
 
   useEffect(() => {
     const fetchQRCode = async () => {
-      if (!token || !router.isReady) return
-
-      const { userId, meses, finalPrice, id } = router.query
-
-      if (!userId || !meses || !finalPrice || !id) return
+      if (!selectedPlan) return
 
       try {
-        const response = await axios.get('/api/payment/pagseguro.ts', {
+        const response = await axios.get('/api/payment/pagseguro', {
           params: {
             token,
-            userId,
-            meses,
-            finalPrice,
-            id,
+            userId: user?._id,
+            meses: selectedPlan.meses,
+            finalPrice: selectedPlan.finalPrice,
+            id: selectedPlan.id,
           },
         })
 
@@ -37,7 +34,7 @@ const PlanCard: FC = () => {
     }
 
     fetchQRCode()
-  }, [token, router.isReady, router.query])
+  }, [token, user, selectedPlan])
 
   return (
     <div className="p-6 border rounded-xl shadow-lg text-center max-w-xl mx-auto bg-white">
@@ -59,8 +56,7 @@ const PlanCard: FC = () => {
 
       <button
         onClick={() => {
-          console.log('Voltando, resetando o plano selecionado...')
-          // Aqui você pode redirecionar ou resetar algum estado
+          setSelectedPlan(null)
         }}
         className="mt-6 px-6 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800"
       >
